@@ -38,6 +38,14 @@ st.set_page_config(
 inject_css()
 st_autorefresh(interval=120_000, key="auto_dash")  # 2 min
 
+# Cache invalidation por sesión: cada visitante nuevo / F5 limpia todos los
+# @st.cache_data → primera vez en la sesión todo se re-fetchea desde fuentes.
+# Las funciones con cache a disco (EIA SPR, gas, JODI) siguen leyendo del archivo
+# local si está fresco, así que esto no dispara llamadas externas innecesarias.
+if "session_init" not in st.session_state:
+    st.cache_data.clear()
+    st.session_state.session_init = True
+
 # session_key: cambia con F5 / botón Regenerar. Cualquier cosa cacheada por sesión
 # (resumen IA, sentiment Claude) se reutiliza dentro de la misma session_key.
 if "ai_session_key" not in st.session_state:
