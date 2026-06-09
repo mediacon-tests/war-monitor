@@ -1,0 +1,126 @@
+# Reservas estratégicas de petróleo (SPR) — gobierno-controladas.
+#
+# Métrica: stocks bajo control estatal (no incluye comercial salvo China — ver nota).
+# Valores en millones de barriles (Mbbl).
+#
+# Fuentes:
+# - USA: EIA API WCSSTUS1 (live semanal, no requiere config).
+# - Japón, OECD Europa: estimaciones EIA Today In Energy + IEA OMR + eventos
+#   discretos de release. Granularidad mensual-trimestral, mantener a mano
+#   cuando se publiquen nuevos análisis o releases.
+# - China: EIA estima TOTAL bajo control estatal (govt SPR ~360 Mbbl + comercial
+#   manejado por SOEs ~1,090 Mbbl). Reportamos el total porque la línea entre
+#   ambos es difusa en China (las refinerías estatales operan el almacenamiento).
+#
+# Actualizar:
+# - USA: automático (semanal).
+# - Resto: editar `puntos` cuando salgan nuevos releases o EIA Today In Energy.
+
+fecha_inicio_conflicto: "2024-04-13"   # Primer ataque directo Irán → Israel
+fuente_principal: "EIA Today In Energy + IEA OMR"
+fecha_snapshot: "2026-05"
+url_fuente: "https://www.eia.gov/todayinenergy/detail.php?id=67504"
+
+# Snapshot actual para bar chart comparativo
+# (USA se sobrescribe en runtime con el último dato EIA semanal)
+# consumo_diario_mbbl: consumo total de petróleo (Mbbl/d, EIA/IEA 2025-26).
+# importaciones_netas_mbbl: imports netos de CRUDO (lo relevante para SPR cover).
+# Días de cobertura se calculan en runtime: mbbl / importaciones_netas_mbbl.
+paises:
+  - nombre: USA
+    mbbl: 365
+    tipo: gobierno
+    consumo_diario_mbbl: 20.3
+    importaciones_netas_mbbl: 6.5    # crudo solamente (US es net exporter en productos)
+    nota: "live EIA WCSSTUS1; refleja release activo abr-may 2026"
+
+  - nombre: China
+    mbbl: 1450
+    tipo: total bajo control estatal
+    consumo_diario_mbbl: 16.4
+    importaciones_netas_mbbl: 11.1
+    nota: "estimación EIA; incluye comercial vía SOEs (govt puro ~360 Mbbl)"
+
+  - nombre: Japón
+    mbbl: 195
+    tipo: gobierno
+    consumo_diario_mbbl: 3.2
+    importaciones_netas_mbbl: 2.8    # ~99% del crudo importado
+    nota: "JOGMEC; post-release mar-26 (-13) y may-26 (-20 días, ~66 Mbbl)"
+
+  - nombre: OECD Europa
+    mbbl: 155
+    tipo: gobierno
+    consumo_diario_mbbl: 13.0
+    importaciones_netas_mbbl: 7.5    # neto de producción Mar del Norte + algunos
+    nota: "agregado IEA member countries; inicio drawdown 400 Mbbl coordinated"
+
+# Series históricas mensuales-trimestrales (Mbbl).
+# USA viene live de EIA WCSSTUS1 cuando la API está disponible.
+# La serie USA acá es FALLBACK para el primer arranque si EIA está rate-limited
+# y no hay cache local todavía.
+series:
+  USA:
+    descripcion: "FALLBACK estático; se ignora cuando EIA WCSSTUS1 responde"
+    color: "ambar"
+    puntos:
+      - { fecha: "2024-01-15", mbbl: 356 }
+      - { fecha: "2024-04-15", mbbl: 365 }
+      - { fecha: "2024-07-15", mbbl: 375 }
+      - { fecha: "2024-10-15", mbbl: 385 }
+      - { fecha: "2025-01-15", mbbl: 395 }
+      - { fecha: "2025-04-15", mbbl: 405 }
+      - { fecha: "2025-07-15", mbbl: 410 }
+      - { fecha: "2025-10-15", mbbl: 413 }
+      - { fecha: "2025-12-15", mbbl: 413 }
+      - { fecha: "2026-04-15", mbbl: 405 }   # inicio drawdown abril 2026
+      - { fecha: "2026-05-15", mbbl: 374 }   # release ~50 Mbbl abr-may
+      - { fecha: "2026-05-22", mbbl: 365 }   # último dato confirmado EIA
+
+  China:
+    descripcion: "TOTAL bajo control estatal — gobierno SPR + comercial SOEs (EIA)"
+    color: "rojo"
+    puntos:
+      - { fecha: "2024-01-15", mbbl: 980 }
+      - { fecha: "2024-04-15", mbbl: 1030 }
+      - { fecha: "2024-07-15", mbbl: 1090 }
+      - { fecha: "2024-10-15", mbbl: 1180 }
+      - { fecha: "2025-01-15", mbbl: 1230 }
+      - { fecha: "2025-04-15", mbbl: 1280 }
+      - { fecha: "2025-07-15", mbbl: 1330 }
+      - { fecha: "2025-10-15", mbbl: 1370 }
+      - { fecha: "2025-12-15", mbbl: 1400 }
+      - { fecha: "2026-03-15", mbbl: 1430 }
+      - { fecha: "2026-05-15", mbbl: 1450 }
+
+  Japón:
+    descripcion: "Gobierno nacional (JOGMEC) — National Stockpile"
+    color: "azul"
+    puntos:
+      - { fecha: "2024-01-15", mbbl: 295 }
+      - { fecha: "2024-04-15", mbbl: 290 }
+      - { fecha: "2024-07-15", mbbl: 285 }
+      - { fecha: "2024-10-15", mbbl: 282 }
+      - { fecha: "2025-01-15", mbbl: 278 }
+      - { fecha: "2025-04-15", mbbl: 275 }
+      - { fecha: "2025-07-15", mbbl: 270 }
+      - { fecha: "2025-10-15", mbbl: 266 }
+      - { fecha: "2025-12-15", mbbl: 263 }
+      - { fecha: "2026-03-15", mbbl: 250 }   # release oficial mar-2026
+      - { fecha: "2026-05-15", mbbl: 195 }   # release 20-day may-2026
+
+  OECD Europa:
+    descripcion: "Agregado government stocks IEA Europe members"
+    color: "violeta"
+    puntos:
+      - { fecha: "2024-01-15", mbbl: 215 }
+      - { fecha: "2024-04-15", mbbl: 212 }
+      - { fecha: "2024-07-15", mbbl: 207 }
+      - { fecha: "2024-10-15", mbbl: 202 }
+      - { fecha: "2025-01-15", mbbl: 197 }
+      - { fecha: "2025-04-15", mbbl: 192 }
+      - { fecha: "2025-07-15", mbbl: 188 }
+      - { fecha: "2025-10-15", mbbl: 184 }
+      - { fecha: "2025-12-15", mbbl: 179 }
+      - { fecha: "2026-03-15", mbbl: 173 }
+      - { fecha: "2026-05-15", mbbl: 155 }   # inicio IEA 400 Mbbl coordinated release

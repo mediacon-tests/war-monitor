@@ -1,0 +1,233 @@
+# Keywords para filtrar feeds, GDELT y posts.
+# `peso` indica relevancia para el "score de criticidad" del feed (0-1).
+
+ataques_a_refinerias:
+  peso: 1.0
+  destacado: true
+  terminos:
+    - "refinery attack"
+    - "refinery strike"
+    - "refinery fire"
+    - "refinery drone"
+    - "refinery explosion"
+    - "abqaiq"
+    - "ras tanura"
+    - "bandar abbas refinery"
+    - "isfahan refinery"
+    - "haifa refinery"
+    - "ashdod refinery"
+    - "abadan refinery"
+    - "jamnagar"
+    - "ruwais"
+
+incidentes_tanqueros:
+  peso: 0.85
+  destacado: true
+  terminos:
+    - "oil tanker"
+    - "tanker seized"
+    - "tanker hijacked"
+    - "tanker drone"
+    - "tanker missile"
+    - "tanker attack"
+    - "VLCC"
+    - "Suezmax"
+    - "shadow fleet"
+
+# Ataques a buques mercantes — piratería + acciones militares/asimétricas.
+# Cubre dos tipologías que en la práctica afectan al shipping de la misma forma:
+# (1) piratería clásica (abordaje, secuestro, ransom) y (2) ataques militares
+# (drones, misiles, fuerzas estatales no-uniformadas). El bucket se llama
+# `pirateria` por compatibilidad de código pero el alcance es más amplio.
+# Fuentes confiables: IMB Piracy Reporting Centre, UKMTO, EU NAVFOR, Ambrey.
+pirateria:
+  peso: 0.9
+  destacado: true
+  terminos:
+    # Piratería clásica
+    - "piracy"
+    - "pirate attack"
+    - "pirates"
+    - "ship hijacked"
+    - "vessel hijacked"
+    - "vessel boarded"
+    - "ship boarded"
+    - "armed boarding"
+    - "armed robbery at sea"
+    - "crew kidnapped"
+    - "kidnapped crew"
+    - "kidnapped sailors"
+    - "ransom demand"
+    - "Somali pirates"
+    - "Gulf of Aden incident"
+    - "Strait of Malacca incident"
+    - "Singapore Strait robbery"
+    - "IMB piracy"
+    - "UKMTO"
+    - "EU NAVFOR"
+    - "merchant vessel attacked"
+    - "MV attacked"
+    # Houthi: amplias porque la actividad Houthi es casi 100% naval/regional;
+    # rara vez aparecen en noticias sin contexto de buque o región MENA marítima.
+    - "Houthi attack"
+    - "Houthi attacks"
+    - "Houthi missile"
+    - "Houthi missiles"
+    - "Houthi drone"
+    - "Houthi drones"
+    - "Houthi-launched"
+    - "Houthis launched"
+    - "Houthis fired"
+    - "Houthis hit"
+    - "Houthi targeted"
+    - "Houthis targeted"
+    - "Houthi-claimed"
+    - "Ansar Allah attack"
+    # Drones/misiles + sustantivo naval (frases compuestas para reducir ruido).
+    # Capturan los ataques a buques sin matchear ataques en Líbano, Gaza, etc.
+    - "drone struck ship"
+    - "drone struck vessel"
+    - "drone struck tanker"
+    - "drone hit ship"
+    - "drone hit vessel"
+    - "drone hit tanker"
+    - "missile struck ship"
+    - "missile struck vessel"
+    - "missile struck tanker"
+    - "missile hit ship"
+    - "missile hit vessel"
+    - "missile hit tanker"
+    - "ship struck by drone"
+    - "vessel struck by drone"
+    - "tanker struck by drone"
+    - "ship struck by missile"
+    - "vessel struck by missile"
+    - "tanker struck by missile"
+    - "drone attack on ship"
+    - "drone attack on vessel"
+    - "drone attack on tanker"
+    - "missile attack on ship"
+    - "missile attack on vessel"
+    - "missile attack on tanker"
+    - "anti-ship missile"
+    - "anti-ship drone"
+    - "anti-ship attack"
+    - "tanker attack"
+    - "attack on tanker"
+    - "attack on vessel"
+    - "attack on cargo ship"
+    - "vessel attacked"
+    - "tanker attacked"
+    - "cargo ship attacked"
+    # Geo: en MENA contemporáneo, "Red Sea attack" / "Bab el-Mandeb attack" son
+    # casi siempre ataques Houthi al shipping.
+    - "Red Sea attack"
+    - "Red Sea strike"
+    - "Red Sea shipping attack"
+    - "Bab el-Mandeb attack"
+    - "Bab al-Mandab attack"
+    # Geo / contexto Red Sea
+    - "Red Sea attack"
+    - "Red Sea strike"
+    - "Red Sea shipping attack"
+    - "Bab el-Mandeb attack"
+    - "Bab al-Mandab attack"
+
+chokepoints:
+  peso: 0.7
+  terminos:
+    - "strait of hormuz"
+    - "suez canal"
+    - "bab el-mandeb"
+    - "bab al-mandab"
+    - "red sea shipping"
+    - "tanker traffic"
+
+actores_clave:
+  peso: 0.6
+  terminos:
+    - "IRGC"
+    - "Revolutionary Guard"
+    - "houthi"
+    - "ansar allah"
+    - "iran navy"
+    - "fifth fleet"
+    - "centcom"
+    - "IDF"
+    - "hezbollah"
+
+opep_y_mercado:
+  peso: 0.5
+  terminos:
+    - "OPEC"
+    - "OPEC+"
+    - "saudi aramco"
+    - "iran oil exports"
+    - "sanctions iran oil"
+    - "spare capacity"
+    - "strategic petroleum reserve"
+
+diplomacia:
+  peso: 0.5
+  terminos:
+    - "ceasefire"
+    - "nuclear deal"
+    - "JCPOA"
+    - "iran sanctions"
+    - "snapback"
+
+# Buckets amplios usados para filtrar posts de Bluesky (cuentas de medios generalistas
+# postean de todo — esto restringe al universo del conflicto y mercados de energía).
+geopolitica_conflicto:
+  peso: 0.6
+  terminos:
+    - "iran"
+    - "iranian"
+    - "tehran"
+    - "israel"
+    - "israeli"
+    - "netanyahu"
+    - "khamenei"
+    - "tel aviv"
+    - "gaza"
+    - "lebanon"
+    - "hezbollah"
+    - "syria"
+    - "syrian"
+    - "nuclear"
+    - "enrichment"
+    - "sanctions"
+    - "hostage"
+    - "IDF"
+    - "IRGC"
+    - "middle east"
+    - "persian gulf"
+    - "red sea"
+    - "houthi"
+    - "yemen"
+    - "ayatollah"
+    - "trump iran"
+    - "centcom"
+
+mercado_energia:
+  peso: 0.55
+  terminos:
+    - "oil"
+    - "crude"
+    - "brent"
+    - "WTI"
+    - "barrel"
+    - "energy market"
+    - "energy prices"
+    - "petroleum"
+    - "refinery"
+    - "refining"
+    - "OPEC"
+    - "saudi"
+    - "aramco"
+    - "natural gas"
+    - "LNG"
+    - "diesel"
+    - "gasoline"
+    - "fuel prices"
+    - "energy security"

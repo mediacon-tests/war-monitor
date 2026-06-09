@@ -1,0 +1,177 @@
+# Tickers Yahoo Finance del dashboard. La estructura agrupa por dimensión analítica.
+# Los grupos `derivados` son series calculadas a partir de los benchmarks (no fetch directo).
+
+benchmarks_crudo:
+  - nombre: Brent (ICE)
+    ticker: BZ=F
+    unidad: USD/bbl
+    color: "#C9A227"
+    hero: true
+  - nombre: WTI (NYMEX)
+    ticker: CL=F
+    unidad: USD/bbl
+    color: "#4A90C2"
+    hero: true
+  - nombre: Oil VIX (^OVX)
+    ticker: ^OVX
+    unidad: index
+    color: "#B33A3A"
+    nota: "Volatilidad implícita del crudo — termómetro de miedo"
+
+destilados_y_gas:
+  - nombre: Gasolina RBOB
+    ticker: RB=F
+    unidad: USD/gal
+  - nombre: Heating Oil / ULSD
+    ticker: HO=F
+    unidad: USD/gal
+  - nombre: Gasoil ICE
+    ticker: LGO=F
+    unidad: USD/ton
+    nota: "Diésel europeo — sensible a Jamnagar y Golfo"
+  - nombre: Henry Hub Natural Gas
+    ticker: NG=F
+    unidad: USD/MMBtu
+
+fletes_tankers:
+  # Equity proxies — los fletes spot son data por suscripción (Baltic Exchange).
+  # Cuando ataques a tanqueros suben fletes, las acciones se mueven primero.
+  - nombre: Frontline
+    ticker: FRO
+    unidad: USD
+  - nombre: Euronav
+    ticker: CMBT
+    unidad: USD
+    nota: "Euronav fue absorbida por CMB.TECH (CMBT) en 2024"
+  - nombre: International Seaways
+    ticker: INSW
+    unidad: USD
+  - nombre: DHT Holdings
+    ticker: DHT
+    unidad: USD
+  - nombre: Scorpio Tankers
+    ticker: STNG
+    unidad: USD
+
+refinerias_expuestas:
+  - nombre: Reliance Industries (Jamnagar)
+    ticker: RELIANCE.NS
+    unidad: INR
+    nota: "La refinería más grande del mundo, expuesta a evento Hormuz"
+  - nombre: Valero
+    ticker: VLO
+    unidad: USD
+    nota: "Refiner US — beneficiario relativo en disrupción global"
+  - nombre: Marathon Petroleum
+    ticker: MPC
+    unidad: USD
+  - nombre: Phillips 66
+    ticker: PSX
+    unidad: USD
+
+petroquimicos:
+  # No hay futuros líquidos públicos para etileno/propileno; los proxies son los grandes.
+  - nombre: LyondellBasell
+    ticker: LYB
+    unidad: USD
+  - nombre: Dow Inc.
+    ticker: DOW
+    unidad: USD
+  - nombre: BASF
+    ticker: BAS.DE
+    unidad: EUR
+  - nombre: Westlake
+    ticker: WLK
+    unidad: USD
+  - nombre: Eastman Chemical
+    ticker: EMN
+    unidad: USD
+
+fertilizantes:
+  # Spot urea/DAP/MOP es Pink Sheet mensual; equity da daily.
+  - nombre: Nutrien
+    ticker: NTR
+    unidad: USD
+  - nombre: CF Industries
+    ticker: CF
+    unidad: USD
+  - nombre: Mosaic
+    ticker: MOS
+    unidad: USD
+  - nombre: Yara
+    ticker: YAR.OL
+    unidad: NOK
+  - nombre: ICL Group
+    ticker: ICL
+    unidad: USD
+  - nombre: K+S
+    ticker: SDF.DE
+    unidad: EUR
+
+lng_y_gas_global:
+  - nombre: Equinor (proxy LNG Europa)
+    ticker: EQNR
+    unidad: USD
+    nota: "TTF directo no está en yfinance — usar proxy"
+  - nombre: Cheniere Energy
+    ticker: LNG
+    unidad: USD
+    nota: "Mayor exportador LNG US"
+  - nombre: Cheniere Partners
+    ticker: CQP
+    unidad: USD
+
+defensa:
+  # Demanda militar / exposure a escalada
+  - nombre: iShares Aerospace & Defense (ITA)
+    ticker: ITA
+    unidad: USD
+  - nombre: RTX
+    ticker: RTX
+    unidad: USD
+  - nombre: Lockheed Martin
+    ticker: LMT
+    unidad: USD
+  - nombre: Northrop Grumman
+    ticker: NOC
+    unidad: USD
+
+macro_hedge:
+  - nombre: USD Index (DXY)
+    ticker: DX-Y.NYB
+    unidad: index
+  - nombre: Oro
+    ticker: GC=F
+    unidad: USD/oz
+    nota: "Hedge clásico de geopolítica MENA"
+  - nombre: S&P 500
+    ticker: ^GSPC
+    unidad: index
+  - nombre: VIX
+    ticker: ^VIX
+    unidad: index
+  - nombre: TLT (proxy MOVE / vol bonos US)
+    ticker: TLT
+    unidad: USD
+    nota: "^MOVE no está en yfinance; TLT realized vol es proxy doméstico"
+
+# Series calculadas a partir de los anteriores. La página las renderiza como
+# spreads / cracks / time spreads.
+derivados:
+  spreads_crudo:
+    - nombre: WTI–Brent arb
+      formula: "CL - BZ"
+      operandos: [CL=F, BZ=F]
+      unidad: USD/bbl
+      nota: "Negativo = WTI descuenta vs Brent. Anomalías indican arb tight o saturación US."
+  cracks:
+    - nombre: 3:2:1 Crack (USGC)
+      formula: "((2*RB + HO)*42 - CL)/3"
+      operandos: [RB=F, HO=F, CL=F]
+      unidad: USD/bbl
+      nota: "Margen refinador estándar. Sube fuerte cuando atacan refinerías."
+    - nombre: Gasoil–Brent (Europa)
+      formula: "LGO/7.45 - BZ"
+      operandos: [LGO=F, BZ=F]
+      unidad: USD/bbl
+      nota: "7.45 bbl/ton (gasoil). Margen del diesel europeo."

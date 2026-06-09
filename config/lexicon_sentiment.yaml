@@ -1,0 +1,73 @@
+# Lexicon casero como fallback de VADER.
+# Usado solo si vaderSentiment falla al importar.
+# Score por post = sum(peso * count) / max(len_palabras, 10), clipado a [-1, 1].
+
+escalada:
+  attack: -0.7
+  attacked: -0.7
+  strike: -0.6
+  strikes: -0.6
+  missile: -0.6
+  drone: -0.5
+  drones: -0.5
+  killed: -0.8
+  dead: -0.7
+  hostility: -0.6
+  retaliation: -0.6
+  retaliate: -0.6
+  escalation: -0.6
+  escalate: -0.6
+  invasion: -0.8
+  bomb: -0.7
+  bombed: -0.7
+  bombing: -0.7
+  fire: -0.4
+  explosion: -0.7
+  explosive: -0.6
+  threat: -0.5
+  threats: -0.5
+  threatening: -0.5
+  warn: -0.3
+  warning: -0.3
+  hijacked: -0.7
+  seized: -0.6
+  conflict: -0.4
+  war: -0.5
+  fighting: -0.5
+
+desescalada:
+  ceasefire: 0.7
+  truce: 0.6
+  agreement: 0.5
+  agreed: 0.4
+  released: 0.4
+  freed: 0.4
+  diplomatic: 0.3
+  negotiation: 0.4
+  negotiations: 0.4
+  talks: 0.3
+  resolved: 0.5
+  withdraw: 0.3
+  withdrawal: 0.3
+  peace: 0.5
+  calm: 0.4
+  stabilize: 0.4
+  stable: 0.3
+  resumed: 0.3
+
+mercado_riesgo:
+  spike: -0.4
+  spiked: -0.4
+  surge: -0.3
+  shutdown: -0.6
+  closed: -0.4
+  closure: -0.5
+  disruption: -0.5
+  disrupted: -0.5
+  shortage: -0.5
+  blocked: -0.5
+  halt: -0.4
+  halted: -0.4
+  collapse: -0.6
+  crash: -0.6
+  panic: -0.5

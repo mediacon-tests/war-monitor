@@ -1,0 +1,102 @@
+# Inventarios de gas natural / GNL por región (BCM = billion cubic meters).
+#
+# Unidad: BCM. Conversiones útiles:
+# - 1 BCM = 35.3 Bcf (billion cubic feet)
+# - 1 BCM ≈ 11 TWh
+# - 1 MT LNG ≈ 1.38 BCM (gas equivalente)
+#
+# A diferencia del SPR de crudo, el storage de gas es altamente estacional
+# (inyección en verano, draw en invierno). Los % de capacidad importan tanto
+# como el valor absoluto (EU tiene mandate de 80% al 1-nov).
+#
+# Fuentes:
+# - USA: EIA NW2_EPG0_SWO_R48_BCF semanal, live.
+# - EU: AGSI+ (GIE) public dashboard, snapshot mensual curado.
+# - Japón: METI weekly LNG inventories at power utilities (MT → BCM).
+# - China: NDRC / IEA estimates anuales.
+
+fecha_inicio_conflicto: "2024-04-13"
+fuente_principal: "EIA + AGSI+ (GIE) + METI + IEA"
+fecha_snapshot: "2026-05"
+
+# Snapshot actual (USA se sobrescribe con dato live EIA)
+paises:
+  - nombre: USA
+    bcm: 73
+    consumo_diario_bcm: 2.4
+    capacidad_bcm: 130   # max working gas capacity USA
+    tipo: underground
+    nota: "live EIA NW2_EPG0_SWO_R48_BCF; inicio injection season"
+
+  - nombre: EU
+    bcm: 40
+    consumo_diario_bcm: 1.0
+    capacidad_bcm: 100
+    tipo: underground
+    nota: "AGSI+ ~40% full; debajo de norma estacional por guerra+invierno frío"
+
+  - nombre: China
+    bcm: 47
+    consumo_diario_bcm: 1.2
+    capacidad_bcm: 55
+    tipo: "underground + LNG tanks"
+    nota: "NDRC; capacidad creciendo (target 55-60 BCM al 2025)"
+
+  - nombre: Japón
+    bcm: 5.5
+    consumo_diario_bcm: 0.27
+    capacidad_bcm: 12   # LNG terminal tanks total (less than underground storage)
+    tipo: "LNG terminal tanks"
+    nota: "METI weekly; ~4 MT LNG en power utilities (=~5.5 BCM gas equiv)"
+
+# Series históricas (BCM)
+# USA NO está acá (viene live de EIA semanal con cache a disco).
+series:
+  EU:
+    descripcion: "AGSI+ aggregated EU underground gas storage"
+    color: "violeta"
+    puntos:
+      - { fecha: "2024-01-15", bcm: 70 }
+      - { fecha: "2024-04-15", bcm: 38 }   # fin de winter draw
+      - { fecha: "2024-07-15", bcm: 78 }   # injection season
+      - { fecha: "2024-10-15", bcm: 95 }   # peak pre-winter
+      - { fecha: "2025-01-15", bcm: 75 }
+      - { fecha: "2025-04-15", bcm: 40 }
+      - { fecha: "2025-07-15", bcm: 75 }
+      - { fecha: "2025-10-15", bcm: 85 }
+      - { fecha: "2025-12-15", bcm: 60 }
+      - { fecha: "2026-02-15", bcm: 42 }   # cold winter + war
+      - { fecha: "2026-04-15", bcm: 32 }   # mínimo post-winter
+      - { fecha: "2026-06-01", bcm: 40 }   # rebuild lento
+
+  China:
+    descripcion: "NDRC underground gas storage + LNG tanks (estimación)"
+    color: "rojo"
+    puntos:
+      - { fecha: "2024-01-15", bcm: 30 }
+      - { fecha: "2024-04-15", bcm: 32 }
+      - { fecha: "2024-07-15", bcm: 35 }
+      - { fecha: "2024-10-15", bcm: 38 }
+      - { fecha: "2025-01-15", bcm: 36 }
+      - { fecha: "2025-04-15", bcm: 40 }
+      - { fecha: "2025-07-15", bcm: 43 }
+      - { fecha: "2025-10-15", bcm: 45 }
+      - { fecha: "2025-12-15", bcm: 44 }
+      - { fecha: "2026-03-15", bcm: 46 }
+      - { fecha: "2026-05-15", bcm: 47 }
+
+  Japón:
+    descripcion: "LNG inventarios en utilities (METI weekly), gas equivalente"
+    color: "azul"
+    puntos:
+      - { fecha: "2024-01-15", bcm: 4.8 }   # winter draw
+      - { fecha: "2024-04-15", bcm: 5.5 }
+      - { fecha: "2024-07-15", bcm: 4.2 }   # summer cooling
+      - { fecha: "2024-10-15", bcm: 5.8 }   # pre-winter stockup
+      - { fecha: "2025-01-15", bcm: 4.5 }
+      - { fecha: "2025-04-15", bcm: 5.2 }
+      - { fecha: "2025-07-15", bcm: 4.0 }
+      - { fecha: "2025-10-15", bcm: 5.5 }
+      - { fecha: "2025-12-15", bcm: 5.0 }
+      - { fecha: "2026-03-15", bcm: 6.0 }   # pre-war stockup
+      - { fecha: "2026-05-15", bcm: 5.5 }

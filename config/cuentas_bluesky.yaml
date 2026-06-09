@@ -1,0 +1,120 @@
+# Cuentas Bluesky a seguir. La API pública (https://public.api.bsky.app) NO requiere auth.
+# Antes de activar verificar el handle en https://bsky.app/profile/<handle>
+# `peso` (0-1) pondera el sentiment agregado.
+
+osint_conflicto:
+  - handle: aurora-intel.bsky.social
+    nombre: Aurora Intel
+    peso: 0.8
+    activo: false
+  - handle: osinttechnical.bsky.social
+    nombre: OSINT Technical
+    peso: 0.8
+    activo: false
+  - handle: caliberobscura.bsky.social
+    nombre: Caliber Obscura
+    peso: 0.7
+    activo: false
+
+shipping_tankers:
+  - handle: tankertrackers.bsky.social
+    nombre: TankerTrackers
+    peso: 1.0
+    activo: false
+    nota: "Referencia clave para tanqueros iraníes"
+  - handle: lloydslist.bsky.social
+    nombre: Lloyd's List
+    peso: 0.9
+    activo: false
+
+energia:
+  - handle: javierblas.bsky.social
+    nombre: Javier Blas (Bloomberg)
+    peso: 1.0
+    activo: false
+  - handle: helimacroft.bsky.social
+    nombre: Helima Croft (RBC)
+    peso: 1.0
+    activo: false
+  - handle: anasalhajji.bsky.social
+    nombre: Anas Alhajji
+    peso: 0.9
+    activo: false
+  - handle: jkempenergy.bsky.social
+    nombre: John Kemp
+    peso: 0.9
+    activo: false
+  - handle: amenabakr.bsky.social
+    nombre: Amena Bakr
+    peso: 0.9
+    activo: false
+
+iran:
+  - handle: hollydagres.bsky.social
+    nombre: Holly Dagres
+    peso: 0.8
+    activo: false
+  - handle: karimsadjadpour.bsky.social
+    nombre: Karim Sadjadpour
+    peso: 0.8
+    activo: false
+  - handle: alivaez.bsky.social
+    nombre: Ali Vaez
+    peso: 0.8
+    activo: false
+
+israel_levante:
+  - handle: joetruzman.bsky.social
+    nombre: Joe Truzman (FDD)
+    peso: 0.7
+    activo: false
+  - handle: amichaistein1.bsky.social
+    nombre: Amichai Stein
+    peso: 0.7
+    activo: false
+
+think_tanks:
+  - handle: understandingwar.bsky.social
+    nombre: ISW
+    peso: 1.0
+    activo: false
+  - handle: rusi.bsky.social
+    nombre: RUSI
+    peso: 0.9
+    activo: false
+
+# Default activo para que el dashboard funcione "out of the box" mientras se
+# verifican los handles reales. Son cuentas confirmadas activas en Bluesky.
+seed:
+  - handle: nytimes.com
+    nombre: NYT
+    peso: 0.6
+    activo: true
+  - handle: theguardian.com
+    nombre: The Guardian
+    peso: 0.6
+    activo: true
+  - handle: reuters.com
+    nombre: Reuters
+    peso: 0.8
+    activo: true
+  - handle: aljazeera.com
+    nombre: Al Jazeera
+    peso: 0.7
+    activo: true
+  - handle: apnews.com
+    nombre: AP News
+    peso: 0.7
+    activo: true
+  - handle: washingtonpost.com
+    nombre: Washington Post
+    peso: 0.6
+    activo: true
+  - handle: semafor.com
+    nombre: Semafor
+    peso: 0.5
+    activo: true
+  - handle: theintercept.com
+    nombre: The Intercept
+    peso: 0.5
+    activo: true

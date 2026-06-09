@@ -1,0 +1,65 @@
+# Feeds RSS — priorizar feeds estables. Reuters/AP cambian URL frecuentemente.
+# Para activar/desactivar, editar `activo`.
+
+feeds:
+  - nombre: BBC Middle East
+    url: https://feeds.bbci.co.uk/news/world/middle_east/rss.xml
+    region: middle_east
+    activo: true
+
+  - nombre: Al Jazeera
+    url: https://www.aljazeera.com/xml/rss/all.xml
+    region: middle_east
+    activo: true
+
+  - nombre: The Guardian Middle East
+    url: https://www.theguardian.com/world/middleeast/rss
+    region: middle_east
+    activo: true
+
+  - nombre: Times of Israel
+    url: https://www.timesofisrael.com/feed/
+    region: israel
+    activo: true
+
+  - nombre: Tehran Times
+    url: https://www.tehrantimes.com/rss
+    region: iran
+    activo: true
+
+  - nombre: Reuters World
+    url: https://www.reutersagency.com/feed/?best-topics=energy&post_type=best
+    region: global
+    activo: false
+    nota: "Reuters cambia URL cada año; dejar como best-effort"
+
+  # Ampliación junio 2026: 5 fuentes adicionales para mejor cobertura.
+  - nombre: Al-Monitor
+    url: https://www.al-monitor.com/rss.xml
+    region: middle_east
+    activo: true
+    nota: "Análisis profesional MENA; balance frente a TOI/Tehran Times"
+
+  - nombre: Middle East Eye
+    url: https://www.middleeasteye.net/rss
+    region: middle_east
+    activo: true
+    nota: "Perspectiva regional crítica (Doha-aligned)"
+
+  - nombre: Oil Price
+    url: https://oilprice.com/rss/main
+    region: global
+    activo: true
+    nota: "Especialista en mercados de petróleo, alta densidad relevante"
+
+  - nombre: France 24 English
+    url: https://www.france24.com/en/rss
+    region: global
+    activo: true
+    nota: "Perspectiva europea continental no-UK"
+
+  - nombre: The Economist (Middle East & Africa)
+    url: https://www.economist.com/middle-east-and-africa/rss.xml
+    region: middle_east
+    activo: true
+    nota: "Análisis premium; ojo paywall en algunas notas"

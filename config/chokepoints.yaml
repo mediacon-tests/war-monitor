@@ -1,0 +1,26 @@
+# IDs validados contra el dataset Daily_Chokepoints_Data (IMF PortWatch).
+# Verificación: services9.arcgis.com/.../Daily_Chokepoints_Data/FeatureServer/0
+# La data se actualiza martes 9am ET (lag típico de 5-7 días).
+
+chokepoints:
+  - portid: chokepoint6
+    nombre: Estrecho de Hormuz
+    nombre_corto: Hormuz
+    color: "#D97A2C"
+    relevancia: critica
+    descripcion: ~30% del crudo marítimo global; Irán amenaza periódicamente con cerrarlo
+    coords: [56.3, 26.5]
+  - portid: chokepoint1
+    nombre: Canal de Suez
+    nombre_corto: Suez
+    color: "#C9A227"
+    relevancia: alta
+    descripcion: Conecta Mediterráneo–Mar Rojo; punto crítico Europa-Asia
+    coords: [32.5, 30.5]
+  - portid: chokepoint4
+    nombre: Bab el-Mandeb
+    nombre_corto: Bab el-Mandeb
+    color: "#B33A3A"
+    relevancia: alta
+    descripcion: Entrada sur al Mar Rojo; ataques Houthi desde 2023 redujeron tránsito
+    coords: [43.3, 12.5]
